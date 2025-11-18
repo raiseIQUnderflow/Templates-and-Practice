@@ -1,7 +1,4 @@
-'''
-    Author: Sarvajnya Pujari
-    Language: PyPy3
-'''
+
 
 from typing import *
 from string import *
@@ -25,9 +22,20 @@ def main():
     output_list = []
     for _ in range(t):
         n, m, q = li()
-        b = li()
+        x,y = sorted(li())
         a = si()
-        print(min(abs(b[0]-a), abs(b[1]-a)))
+        # if _ == 135:
+        #     print(n,m,q,x,y,a,sep=' ')
+        #     continue
+        if x<a<y:
+            mid = (x+y)//2
+            output_list += [(min(abs(x-mid),abs(y-mid)))]
+        else:
+            if a>y:
+                output_list += [(n-y)]
+            elif a<x:
+                output_list += [(x-1)]
+    print('\n'.join(map(str, output_list)).strip())
 
 
 
