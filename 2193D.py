@@ -6,7 +6,6 @@ def main():
         n=si() 
         a=li() 
         b=li() 
-        req=0 
         a.sort()
         pref=[0]*(n+1)
         for i in range(n):
@@ -14,29 +13,13 @@ def main():
         d=defaultdict(int)
         for i in range(n):
             d[Wrapper(a[i])]=max(d[Wrapper(a[i])], n-bisect_left(a, a[i]))
-        # print(d.values())
         ans=-inf
-        # print(pref)
-        pref=pref[1:]
         for k,v in d.items():
-            x=Wrapper(k)
-            temp=v 
-            i=0 
-            temp2=0
-            # print(x,temp,sep=' ')
-            ind=bisect_right(pref, temp)
-            # print(ind)
-            # while i<n:
-            #     if temp-b[i]>=0:
-            #         temp-=b[i] 
-            #         temp2+=1 
-            #     else:
-            #         break
-            #     # print(temp, i, sep=' ')
-            #     i+=1
+            x=Wrapper(k)            
+            
+            ind=bisect_right(pref, v)-1            
                 
             ans=max(ans,ind*x)
-            # print(ans, x, temp, i, temp2, v,sep=' ')
         output_list+=[ans]
 
 
@@ -69,7 +52,7 @@ BUFsiZE = 4096
 
 #Fast IO using PyRival
 
-RANDOM = random.randrange(2**62)
+RANDOM = random.randrange(1<<62)
 
 
 def Wrapper(x):
