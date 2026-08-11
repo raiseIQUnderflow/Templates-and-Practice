@@ -1,25 +1,12 @@
 
 def main():
-    output_list = []
-    n,l,a= li()
-    curr=0 
-    ans=0
-    for _ in range(n):
-        x,y=li()
-        ans+=(x-curr)//a
-        curr=x+y 
-    rem=l-curr 
-    ans+=rem//a 
-    print(ans)
-
-
-
-        
+    n=si() 
+    s=ss() 
+    
+    print(min(s.count('8'), n//11))
     
 
-    print('\n'.join(map(str, output_list)).strip())
-    pass
-
+#Header_Files   
 import os
 import sys
 from io import BytesIO, IOBase
@@ -35,7 +22,7 @@ from functools import *
 from heapq import *
 from itertools import *
 from string import *
-from math import *
+import math
 mod = 1e9+7
 def input(): return sys.stdin.readline().strip()
 
