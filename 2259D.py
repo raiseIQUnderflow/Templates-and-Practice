@@ -13,15 +13,14 @@ def main():
         if a.count(0)==1:
             output_list.append("NO")
             continue
-        d=defaultdict(int)
         ind=defaultdict(list)
         for i in range(n): 
-            d[Wrapper(a[i])]+=1
+            
             ind[Wrapper(a[i])].append(i) 
         m=max(a) 
         res=[0]*n 
         for i in range(m+1):
-            if d[Wrapper(i)]<2:
+            if len(ind[Wrapper(i)])<2:
                 break
             l=ind[Wrapper(i)]
             
@@ -69,7 +68,7 @@ BUFsiZE = 4096
 
 #Fast IO using PyRival
 
-RANDOM = random.randrange(1<<62)
+RANDOM = random.randrange(1<<61,1<<62)
 
 
 def Wrapper(x):
