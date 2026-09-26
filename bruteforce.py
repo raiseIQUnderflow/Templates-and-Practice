@@ -23,4 +23,30 @@ import math
     #         f.write(f"{o}\n")
     #         s.add(o)
 val=4/5
-print(math.asin(val) * 180/math.pi )
+# print(math.asin(val) * 180/math.pi )
+def power(a, b, m=int(1e9+7)):
+    '''to return a^b%m in O(logn) time'''
+    res=1
+    a %= m
+    while b:
+        if b % 2 == 1:
+            res=(res*a) % m
+        a=(a*a) % m
+        b=b // 2
+    return res % m
+
+def fun(s):
+    n=0 
+    for i in s:
+        n+=power(int(i),2)
+    return int(n)
+
+val=4
+ans=0
+with open('debug.txt', 'w') as f:
+    for i in range(100):
+
+            val=fun(str(val))
+            ans+=1
+            
+            f.write(f"{val}\n")
