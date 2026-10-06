@@ -1,105 +1,115 @@
-'''
-    Author: Sarvajnya Pujari
-    Language: PyPy3
-'''
 
 def main():
-    t = si()
-    output_list = []
+    t=si()
+    ol=[]
     for _ in range(t):
-        n,k = li() 
-        a=li() 
-        prod = 1 
-        for i in a: 
-            prod *= i 
-        if prod % k == 0:
-            output_list += [0]
-        elif k == 2:            
-            output_list += [1] 
-        elif k == 5:
-            ans = inf 
+        n,k=li() 
+        a=li()
+
+        if k==2:
+            f=False 
             for i in a:
-                ans = min(ans, (5*(math.ceil(i/5))-i))
-            output_list += [ans] 
-        elif k == 3:
-            z=sum(int(i) for i in str(prod))
-            output_list += [3*math.ceil(z/3)-z]
+                if i&1==0:
+                    f=True 
+                    break
+            if f:
+                ol+=[0]
+            else:
+                ol+=[1]
+            continue
+        if k==5:
+            if 5 in a or 10 in a:
+                ol+=[0]
+            else:
+                ans=inf 
+                for i in a:
+                    ans=min(ans,(ceil(i/5)*5)-i)
+                ol+=[ans]
+            continue
+        if k==3:
+            ans=inf
+            for i in a:
+                ans=min(ans,(ceil(i/3)*3)-i)
+            ol+=[ans]
+            continue
         else:
-            ec = 0 
-            i=0
-            while i<n and ec<2:
-                if a[i]>1 and a[i]%2:
-                    a[i] += 1
-                    ec += 1 
-                    if a[i]%4 == 0:
-                        break
-                i += 1 
-            output_list += [ec]
+            ans=inf 
+            o,e=[],[]
+            for i in a:
+                if i&1:
+                    o+=[i] 
+                else:
+                    e+=[i] 
+            if len(o)==0 or len(e)>=2 or 4 in a or 8 in a:
+                ol+=[0]
+                continue
+            if 3 in a or 7 in a or len(e)>=1:
+                ol+=[1]
+                continue
+            ol+=[2]
+
             
-
-    print('\n'.join(map(str, output_list)).strip())
-    
-
-def calc():
+    print('\n'.join(map(str, ol)).strip())
     pass
-    
 
-#Header_Files   
 import os
 import sys
-import math
 from io import BytesIO, IOBase
 
 import random
 import os
 
-import bisect
-import typing
+from bisect import *
+from typing import *
 from collections import *
 from copy import *
 from functools import *
 from heapq import *
 from itertools import *
-from operator import *
 from string import *
-from typing import *
-inf = math.inf
-
-mod = 1e9+7
+from math import *
+mod=1e9+7
 def input(): return sys.stdin.readline().strip()
 
 
-BUFSIZE = 4096
+BUFsiZE=4096
 
 
 #Fast IO using PyRival
+
+RANDOM=random.randrange(1<<61,1<<62)
+
+
+def Wrapper(x):
+  return x ^ RANDOM
+
 class FastIO(IOBase):
-    newlines = 0
+    newlines=0
 
     def __init__(self, file):
-        self._fd = file.fileno()
-        self.buffer = BytesIO()
-        self.writable = "x" in file.mode or "r" not in file.mode
-        self.write = self.buffer.write if self.writable else None
+        self._fd=file.fileno()
+        self.buffer=BytesIO()
+        self.writable="x" in file.mode or "r" not in file.mode
+        self.write=self.buffer.write if self.writable else None
 
     def read(self):
         while True:
-            b = os.read(self._fd, max(
-                os.fstat(self._fd).st_size, BUFSIZE))
+            b=os.read(self._fd, max(
+                os.fstat(self._fd).st_size, BUFsiZE))
             if not b:
                 break
-            ptr = self.buffer.tell()
+            ptr=self.buffer.tell()
             self.buffer.seek(0, 2), self.buffer.write(
                 b), self.buffer.seek(ptr)
-        self.newlines = 0
+        self.newlines=0
         return self.buffer.read()
 
     def readline(self):
         while self.newlines == 0:
-            b = os.read(self._fd, max(
-                os.fstat(self._fd).st_size, BUFSIZE))
-            self.newlines = b.count(b"\n") + (not b)
-            ptr = self.buffer.tell()
+            b=os.read(self._fd, max(
+                os.fstat(self._fd).st_size, BUFsiZE))
+            self.newlines=b.count(b"\n") + (not b)
+            ptr=self.buffer.tell()
             self.buffer.seek(0, 2), self.buffer.write(
                 b), self.buffer.seek(ptr)
         self.newlines -= 1
@@ -113,18 +123,18 @@ class FastIO(IOBase):
 
 class IOWrapper(IOBase):
     def __init__(self, file):
-        self.buffer = FastIO(file)
-        self.flush = self.buffer.flush
-        self.writable = self.buffer.writable
-        self.write = lambda s: self.buffer.write(s.encode("ascii"))
-        self.read = lambda: self.buffer.read().decode("ascii")
-        self.readline = lambda: self.buffer.readline().decode("ascii")
+        self.buffer=FastIO(file)
+        self.flush=self.buffer.flush
+        self.writable=self.buffer.writable
+        self.write=lambda s: self.buffer.write(s.encode("ascii"))
+        self.read=lambda: self.buffer.read().decode("ascii")
+        self.readline=lambda: self.buffer.readline().decode("ascii")
 
 
-sys.stdout = IOWrapper(sys.stdout)
+sys.stdout=IOWrapper(sys.stdout)
 
 
-def print(*args, end='\n', sep=' '):
+def print(*args, end='\n', sep=''):
     for i in args:
         sys.stdout.write(str(i))
         sys.stdout.write(sep)
@@ -145,8 +155,8 @@ def sf(types=None):
 
 def ss(types=None):
     if not types:
-        return input().strip()
-    return str(types)
+        return list(input().strip())
+    return list(str(types))
 
 
 def li(types=None):
@@ -177,28 +187,6 @@ def ls(types=None):
     if not types:
         return list(input().strip().split())
     return list(map(str, str(types)))
-
-
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
-
-
-def lcm(a, b):
-    return a*b//gcd(a, b)
-
-
-def power(a, b, m=mod):
-    '''to return a^b%m in O(logn) time'''
-    res = 1
-    a %= m
-    while b:
-        if b % 2 == 1:
-            res = (res*a) % m
-        a = (a*a) % m
-        b = b // 2
-    return res % m
 
 if __name__ == '__main__':
     main()
