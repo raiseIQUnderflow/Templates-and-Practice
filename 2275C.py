@@ -7,31 +7,18 @@ def main():
     for _ in range(t):
         n=si() 
         a=li()
-        d=defaultdict(list) 
+        d=defaultdict(set) 
         for i in range(n-4):
             val=a[i]+a[i+2]-a[i+4]
-            d[Wrapper(val)].append(i) 
+            d[Wrapper(val)].add(Wrapper(i)) 
         ans=0
-        for k,v in d.items():
+        for v in d.values():
             ans+=max_poss(len(v))
-            # print(ans)
-            for i in range(len(v)-1):
-                val=v[i] 
-                ind1=bisect_left(v, val+2)
-                ind2=bisect_left(v, val+4)
-                if ind1<len(v):
-                    if v[ind1]==val+2:
-                        ans-=1 
-                if ind2<len(v):
-                    if v[ind2]==val+4:
-                        ans-=1
-                # print(val,ans,sep=' ')
-
-            #     for j in range(i+1,len(v)):
-            #         if v[i]!=v[j] and (v[i]+2)!=v[j] and (v[i]+4)!=v[j]:
-            #             ans+=1
-                        
-        # print(d)
+            for i in v:
+                val=Wrapper(i)
+                ans-=(Wrapper(val+2) in v)
+                ans-=(Wrapper(val+4) in v)
+                
         ol.append(ans)
             
     print('\n'.join(map(str, ol)).strip())
