@@ -27,7 +27,7 @@ def main():
                 if temp[ind][1]==temp[ind][2]==temp[ind][3]:
                     break
                 ans=inf 
-                if temp[ind][1]!=temp[ind][3]:
+                if temp[ind][1]!=temp[ind][3]:  
                     ans=min(ans,abs(temp[ind][1]-1-temp[ind][2]))
                 if temp[ind][1]!=temp[ind][2]:
                     ans=min(ans,abs(temp[ind][1]-1-temp[ind][3]))
